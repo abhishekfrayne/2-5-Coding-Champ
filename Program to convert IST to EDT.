@@ -1,0 +1,29 @@
+/******************************************************************************
+ Java Program to convert IST to EDT for cerner_2^5_2020
+ *******************************************************************************/
+ // cerner_2^5_2020
+ // Required JDK-Version => Java 8
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+ 
+public class Main 
+{
+    static DateTimeFormatter globalFormat = DateTimeFormatter.ofPattern("MM/dd/yyyy 'at' hh:mma z");
+    static DateTimeFormatter etFormat     = DateTimeFormatter.ofPattern("MM/dd/yyyy 'at' hh:mma 'ET'");
+     
+    static ZoneId istZoneId = ZoneId.of("Bangalore");
+    static ZoneId edtZoneId = ZoneId.of("New York");
+     
+    public static void main(String[] args) 
+    {       
+        LocalDateTime currentDateTime = LocalDateTime.now();
+         
+        ZonedDateTime currentISTime = currentDateTime.atZone(istZoneId);                //India Time
+        ZonedDateTime currentETime = currentISTime.withZoneSameInstant(edtZoneId);     //EDT Time
+         
+        System.out.println(globalFormat.format(currentISTime));
+        System.out.println(etFormat.format(currentETime));
+    }
+}
